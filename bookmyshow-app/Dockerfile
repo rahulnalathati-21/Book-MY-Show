@@ -1,12 +1,21 @@
-# Multi-stage construction configuration
 FROM node:18-alpine AS build
+
 WORKDIR /app
+
 COPY package*.json ./
-RUN npm install
+
+RUN npm install --legacy-peer-deps
+
 COPY . .
+
+ENV NODE_OPTIONS=--openssl-legacy-provider
+
 RUN npm run build
-# Tiny distribution stage using Nginx production server
+
 FROM nginx:alpine
+
 COPY --from=build /app/build /usr/share/nginx/html
+
 EXPOSE 80
+
 CMD ["nginx", "-g", "daemon off;"]
