@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: bms-app
+  name: bms-deployment
 
 spec:
   replicas: 2
@@ -18,8 +18,8 @@ spec:
 
     spec:
       containers:
-      - name: bms-container
-        image: kastrov/bms:latest
+        - name: bms-container
+          image: rahulf121/bms:latest
 
-        ports:
-        - containerPort: 80
+          ports:
+            - containerPort: 80
