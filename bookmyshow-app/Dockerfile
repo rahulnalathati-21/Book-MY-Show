@@ -1,17 +1,19 @@
-FROM node:18-alpine AS build
+# Build Stage
+FROM node:18 AS build
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --legacy-peer-deps
+RUN npm install
 
 COPY . .
 
-ENV NODE_OPTIONS=--openssl-legacy-provider
+ENV CI=false
 
 RUN npm run build
 
+# Production Stage
 FROM nginx:alpine
 
 COPY --from=build /app/build /usr/share/nginx/html

@@ -18,8 +18,10 @@ spec:
 
     spec:
       containers:
-        - name: bms-container
-          image: rahulf121/bms:latest
+      - name: bms-container
+        image: rahulf121/bms:latest
 
-          ports:
-            - containerPort: 80
+        imagePullPolicy: Always
+
+        ports:
+        - containerPort: 80
